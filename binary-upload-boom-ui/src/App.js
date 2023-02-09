@@ -8,6 +8,7 @@ import {HomePage} from './components/homepage/HomePage';
 import {Post} from './components/shared/Post';
 import {ProtectedRoute} from './components/shared/ProtectedRoute';
 import {ButtonAppBar} from './components/shared/AppBar';
+import {Feed} from "./components/feed/Feed"
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,12 @@ const router = createBrowserRouter([
       <ProtectedRoute>
         <Post />
       </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/feed',
+    element: (
+          <Feed />
     ),
   },
 ]);

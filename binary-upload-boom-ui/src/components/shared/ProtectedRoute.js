@@ -6,7 +6,7 @@ export const ProtectedRoute = ({children}) => {
   const {token} = useAuth();
   const navigate = useNavigate();
   useEffect(() => {
-    // if no token user is not logged in navigate to log in
+    // if no token user.js is not logged in navigate to log in
     if (!token) {
       navigate('/login');
     }

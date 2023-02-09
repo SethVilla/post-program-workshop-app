@@ -40,4 +40,4 @@ export const authReducer = (auth, action) => {
 
 export const useAuth = () => useContext(AuthContext);
 
-export const useAuthDispactch = () => useContext(AuthDispatchContext);
+export const useAuthDispatch = () => useContext(AuthDispatchContext);
