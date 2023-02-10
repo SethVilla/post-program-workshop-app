@@ -17,6 +17,11 @@ export const HomePage = () => {
     const [title, setTitle] = useState([pageTitle, subtitle, slogan])
 
     // Practice useReducer
+    const firstReducer  = (state, action) => {
+        switch() {
+            
+        }
+    }
 
 
     const [dogs, setDogs] = useState([])
