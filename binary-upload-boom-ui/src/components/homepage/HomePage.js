@@ -55,7 +55,7 @@ export const HomePage = () => {
         {/* Display the title state */}
         {title.map((item) => <h1>{item}</h1>)}
 
-        <h1>{state?.subtitle}</h1>
+        <Typography>{state?.subtitle}</Typography>
 
 
         <ImageList cols={5} rowHeight={300}>
