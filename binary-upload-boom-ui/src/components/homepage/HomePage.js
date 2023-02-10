@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useReducer} from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {getDogs} from "../../services/services";
@@ -7,7 +7,32 @@ import ImageListItem from '@mui/material/ImageListItem';
 import {buildDogFeedPost} from "../../utils/utils";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+
+// import the variables from constants
+import { pageTitle, subtitle, slogan } from '../constants/constans'
+
 export const HomePage = () => {
+
+    // Task 1: practice useState and useReducer
+    const [title, setTitle] = useState([pageTitle, subtitle, slogan])
+
+    // Practice useReducer
+    const firstReducer  = (state, action) => {
+        switch(action.type) {
+            case 'subtitle': {return {
+                ...state,
+                subtitle: "Discover unique finds"
+            }}
+            case 'slogan': {return {
+                ...state,
+                slogan: "Shop the world's best brands"
+            }}
+        }
+    }
+    //useReducer
+    const [state, dispatch] = useReducer(firstReducer, {subtitle, slogan})
+
+
     const [dogs, setDogs] = useState([])
     const [loading, setLoading] = useState(false);
 
@@ -26,6 +51,13 @@ export const HomePage = () => {
     }, []);
 
     return <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+
+        {/* Display the title state */}
+        {title.map((item) => <h1>{item}</h1>)}
+
+        <Typography>{state?.subtitle}</Typography>
+
+
         <ImageList cols={5} rowHeight={300}>
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
