@@ -18,8 +18,15 @@ export const HomePage = () => {
 
     // Practice useReducer
     const firstReducer  = (state, action) => {
-        switch() {
-            
+        switch(action.type) {
+            case 'subtitle': {return {
+                ...state,
+                subtitle: "Discover unique finds"
+            }}
+            case 'slogan': {return {
+                ...state,
+                slogan: "Shop the world's best brands"
+            }}
         }
     }
 
