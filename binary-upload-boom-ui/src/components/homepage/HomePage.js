@@ -29,6 +29,8 @@ export const HomePage = () => {
             }}
         }
     }
+    //useReducer
+    const [state, dispatch] = useReducer(firstReducer, {subtitle, slogan})
 
 
     const [dogs, setDogs] = useState([])
@@ -52,6 +54,8 @@ export const HomePage = () => {
 
         {/* Display the title state */}
         {title.map((item) => <h1>{item}</h1>)}
+
+        <h1>{state?.subtitle}</h1>
 
 
         <ImageList cols={5} rowHeight={300}>
