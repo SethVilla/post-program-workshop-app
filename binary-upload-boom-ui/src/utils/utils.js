@@ -1,10 +1,11 @@
-import { faker } from '@faker-js/faker';
+import {faker} from '@faker-js/faker';
 
-export const buildDogFeedPost = (imageUrl) => {
-    const dogName = faker.name.fullName()
+export const buildDogFeedPost = (imageUrl,i) => {
+  const dogName = faker.name.fullName();
 
-    return {
-        dogName,
-        imageUrl
-    }
-}
+  return {
+    id: i,
+    dogName,
+    imageUrl,
+  };
+};

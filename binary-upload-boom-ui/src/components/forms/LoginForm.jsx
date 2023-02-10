@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,21 +13,35 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Typography from '@mui/material/Typography'
 import {Copyright} from '../shared/Copyright'
 import axios from 'axios';
+import {useAuthDispatch, useAuth} from "../../contexts/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const {uid} = useAuth();
+  const dispatch = useAuthDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      if (uid) {
+          navigate("/profile")
+      }
+  }, [uid])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-     const res = await axios.post("/login");
-    console.log(res.data)
+     const res = await axios.post("/auth/login", {
+         email: data.get('email'),
+         password: data.get('password'),
+     });
+    if (res?.data) {
+        dispatch({type: 'all', value: {
+            ...res.data
+        }});
+    }
   }
 
   return (

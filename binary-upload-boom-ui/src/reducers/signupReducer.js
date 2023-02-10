@@ -1,5 +1,11 @@
 export const signupReducer = (state, action) => {
   switch (action.type) {
+    case 'change_username': {
+      return {
+        ...state,
+        username: action.value,
+      };
+    }
     case 'change_first_name': {
       return {
         ...state,

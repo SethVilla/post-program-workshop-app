@@ -6,8 +6,10 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import {useNavigate} from "react-router-dom";
 
 export const ButtonAppBar = () => {
+  const navigate = useNavigate();
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static">
@@ -24,13 +26,13 @@ export const ButtonAppBar = () => {
           <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
             Binary Upload Boom
           </Typography>
-          <Button href="/" color="inherit">
+          <Button onClick={() => navigate("/")} color="inherit">
             Home
           </Button>
-          <Button href="/login" color="inherit">
+          <Button onClick={() => navigate("/login")} color="inherit">
             Login
           </Button>
-          <Button href="/signup" color="inherit">
+          <Button onClick={() => navigate("/signup")} color="inherit">
             Signup
           </Button>
         </Toolbar>

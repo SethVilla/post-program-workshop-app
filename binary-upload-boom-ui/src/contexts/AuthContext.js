@@ -5,11 +5,11 @@ const AuthContext = createContext(null);
 const AuthDispatchContext = createContext(null);
 
 const initialAuth = {
-  userName: '',
+  username: '',
   email: '',
   firstName: '',
   lastName: '',
-  token: '',
+  uid: '',
 };
 
 export const AuthProvider = ({children}) => {

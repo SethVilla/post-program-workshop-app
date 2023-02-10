@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,23 +13,45 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {signupReducer} from '../../reducers/signupReducer';
 import {Copyright} from '../shared/Copyright';
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useAuthDispatch, useAuth} from "../../contexts/AuthContext";
+
 
 export const SignupForm = () => {
+  const {uid} = useAuth();
+  const authDispatch = useAuthDispatch();
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(signupReducer, {
+    username: '',
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    newsLetter: false,
+    newsLetter: false
   });
 
-  const handleSubmit = event => {
+  useEffect(() => {
+    if (uid) {
+      navigate("/profile")
+    }
+  }, [uid])
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const res = await axios.post("/auth/signup", {
+      username: data.get('username'),
       email: data.get('email'),
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       password: data.get('password'),
-    });
+    })
+      if (res?.data) {
+        authDispatch({type: 'all', value: {
+            ...res.data
+          }});
+      }
   };
 
   return (
@@ -51,7 +73,22 @@ export const SignupForm = () => {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
+              <TextField
+                  autoComplete="given-name"
+                  name="username"
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  autoFocus
+                  value={state.username}
+                  onChange={e =>
+                      dispatch({type: 'change_username', value: e.target.value})
+                  }
+              />
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
                 name="firstName"
@@ -66,7 +103,7 @@ export const SignupForm = () => {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth

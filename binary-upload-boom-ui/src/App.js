@@ -8,34 +8,44 @@ import {HomePage} from './components/homepage/HomePage';
 import {Post} from './components/shared/Post';
 import {ProtectedRoute} from './components/shared/ProtectedRoute';
 import {ButtonAppBar} from './components/shared/AppBar';
-import {Feed} from "./components/feed/Feed"
+import {Feed} from './components/feed/Feed';
+import {ProfilePage} from "./components/profilepage/profile";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <><ButtonAppBar /><HomePage /></>,
   },
   {
     path: '/signup',
-    element: <SignupForm />,
+    element: <><ButtonAppBar /><SignupForm /></>,
   },
   {
     path: '/login',
-    element: <LoginForm />,
+    element: <><ButtonAppBar /><LoginForm /></>,
   },
   {
     path: '/post/:postId',
     element: (
       <ProtectedRoute>
+        <ButtonAppBar />
         <Post />
       </ProtectedRoute>
     ),
   },
   {
     path: '/feed',
-    element: (
-          <Feed />
-    ),
+    element: <><ButtonAppBar /><Feed /></>,
+  },
+  {
+    path: '/profile',
+    element: <ProtectedRoute><ButtonAppBar /><ProfilePage /></ProtectedRoute>,
   },
 ]);
 
@@ -43,8 +53,9 @@ function App() {
   const theme = createTheme();
   return (
     <ThemeProvider theme={theme}>
-      <ButtonAppBar />
+      <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

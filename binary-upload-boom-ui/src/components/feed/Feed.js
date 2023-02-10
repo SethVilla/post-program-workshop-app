@@ -1,9 +1,26 @@
-import React, {useEffect} from 'react';
-import axios from "axios";
+import React from 'react';
+import {getRickAndMortyCharacters} from "../../services/services";
+import {useQuery} from "@tanstack/react-query";
+
 export const Feed = () => {
-    useEffect(() => {
-        const hello = axios.get("/hello");
-        console.log(hello)
-    })
-    return <>Feed</>
-}
+  const { status, data, error } = useQuery({
+    queryKey: ['characters'],
+    queryFn: getRickAndMortyCharacters,
+  })
+
+  if (status === 'loading') {
+    return <span>Loading...</span>
+  }
+
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
+
+  return <>
+
+    <h2>Feed</h2>
+    {data?.data?.results?.map(({id, name}) => (
+        <li key={id}>{name}</li>
+    ))}
+  </>;
+};
