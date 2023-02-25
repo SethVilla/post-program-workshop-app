@@ -9,49 +9,73 @@ import {Post} from './components/shared/Post';
 import {ProtectedRoute} from './components/shared/ProtectedRoute';
 import {ButtonAppBar} from './components/shared/AppBar';
 import {Feed} from './components/feed/Feed';
-import {ProfilePage} from "./components/profilepage/profile";
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import {ProfilePage} from './components/profilepage/profile';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
-const queryClient = new QueryClient(  {defaultOptions: {
-  queries: {
-    refetchOnWindowFocus: false,
-        retry: false,
-        cacheTime: Infinity,
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+      cacheTime: Infinity,
+    },
   },
-}},)
+});
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <><ButtonAppBar /><HomePage /></>,
+    element: (
+      <>
+        <ButtonAppBar />
+        <HomePage />
+      </>
+    ),
   },
   {
     path: '/signup',
-    element: <><ButtonAppBar /><SignupForm /></>,
+    element: (
+      <>
+        <ButtonAppBar />
+        <SignupForm />
+      </>
+    ),
   },
   {
     path: '/login',
-    element: <><ButtonAppBar /><LoginForm /></>,
+    element: (
+      <>
+        <ButtonAppBar />
+        <LoginForm />
+      </>
+    ),
   },
   {
     path: '/post/:postId',
     element: (
-      <ProtectedRoute>
+      <>
         <ButtonAppBar />
         <Post />
-      </ProtectedRoute>
+      </>
     ),
   },
   {
     path: '/feed',
-    element: <><ButtonAppBar /><Feed /></>,
+    element: (
+      <>
+        <ButtonAppBar />
+        <Feed />
+      </>
+    ),
   },
   {
     path: '/profile',
-    element: <ProtectedRoute><ButtonAppBar /><ProfilePage /></ProtectedRoute>,
+    element: (
+      <>
+        <ButtonAppBar />
+        <ProfilePage />
+      </>
+    ),
   },
 ]);
 
@@ -60,7 +84,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </QueryClientProvider>
     </ThemeProvider>
   );

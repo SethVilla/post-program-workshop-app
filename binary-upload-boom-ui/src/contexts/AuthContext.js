@@ -11,7 +11,7 @@ const initialAuth = {
   lastName: '',
   uid: '',
 };
-
+//
 export const AuthProvider = ({children}) => {
   const [auth, dispatch] = useReducer(authReducer, initialAuth);
 

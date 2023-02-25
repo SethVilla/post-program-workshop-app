@@ -1,6 +1,7 @@
 const express = require("express");
 const {pool} = require("./config/db/index.js")
 const passport = require("passport");
+const {createPost} = require("./services/cloudinary/cloudinary")
 require("./config/passport/index.js")(passport);
 
 const router = express.Router();
@@ -41,6 +42,11 @@ router.post(
             email: req.user.email
         });
     }
+);
+
+router.post(
+    "/post/upload",
+    createPost
 );
 
 
