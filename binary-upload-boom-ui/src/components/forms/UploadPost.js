@@ -1,12 +1,17 @@
 import React, {useReducer} from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import {BasicDateCalendar} from '../calendar';
 
 export const UploadPost = () => {
   const uploadPostReducer = (state, action) => {
     switch (action.type) {
       case 'image':
-        return {...state, img: action.value.img, fileName: action.value.fileName};
+        return {
+          ...state,
+          img: action.value.img,
+          fileName: action.value.fileName,
+        };
       default:
         return {...state};
     }
@@ -53,11 +58,8 @@ export const UploadPost = () => {
         aria-label="attach"
         accept=".jpg, .jpeg, .bmp, .gif, .png"
       />
-        <Button
-            onClick={submit}
-        >
-            Click me
-        </Button>
+      <Button onClick={submit}>Click me</Button>
+      <BasicDateCalendar />
     </div>
   );
 };
